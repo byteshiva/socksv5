@@ -18,6 +18,28 @@ Install
 
 Examples
 ========
+Custom Implementation
+
+Note, you can override socksv5 user/pass parameters using /lib/const.js
+
+```
+var socks = require('socksv5');
+
+var srv = socks.createServer(function(info, accept, deny) {
+  accept();
+});
+srv.listen(1080, 'localhost', function() {
+  console.log('SOCKS server listening on port 1080');
+});
+
+srv.useAuth(socks.auth.custom(function(user, password, cb) {
+  cb(user === 'nodejs' && password === 'rules!');
+}));
+
+
+```
+
+
 
 * Server with no authentication and allowing all connections:
 
